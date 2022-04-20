@@ -6,7 +6,7 @@ from .base_repository import BaseRepository
 
 
 class Repository(BaseRepository):
-    def __init__(self, packages=None, name=None):
+    def __init__(self, packages=None, name=None, secondary=False):
         super(Repository, self).__init__()
 
         self._name = name
@@ -16,6 +16,8 @@ class Repository(BaseRepository):
 
         for package in packages:
             self.add_package(package)
+
+        self.secondary = secondary
 
     @property
     def name(self):

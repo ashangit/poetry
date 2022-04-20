@@ -72,9 +72,9 @@ class Factory(BaseFactory):
         # Configuring sources
         sources = poetry.local_config.get("source", [])
         for source in sources:
-            repository = self.create_legacy_repository(source, config)
             is_default = source.get("default", False)
             is_secondary = source.get("secondary", False)
+            repository = self.create_legacy_repository(source, config, secondary=is_secondary)
             if io.is_debug():
                 message = "Adding repository {} ({})".format(
                     repository.name, repository.url
@@ -137,7 +137,7 @@ class Factory(BaseFactory):
         return config
 
     def create_legacy_repository(
-        self, source, auth_config
+        self, source, auth_config, secondary=False
     ):  # type: (Dict[str, str], Config) -> LegacyRepository
         from .repositories.legacy_repository import LegacyRepository
         from .utils.helpers import get_cert
@@ -159,4 +159,5 @@ class Factory(BaseFactory):
             config=auth_config,
             cert=get_cert(auth_config, name),
             client_cert=get_client_cert(auth_config, name),
+            secondary=secondary
         )

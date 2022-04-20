@@ -161,7 +161,7 @@ class Page:
 
 class LegacyRepository(PyPiRepository):
     def __init__(
-        self, name, url, config=None, disable_cache=False, cert=None, client_cert=None
+            self, name, url, config=None, disable_cache=False, cert=None, client_cert=None, secondary=False
     ):  # type: (str, str, Optional[Config], bool, Optional[Path], Optional[Path]) -> None
         if name == "pypi":
             raise ValueError("The name [pypi] is reserved for repositories")
@@ -193,6 +193,7 @@ class LegacyRepository(PyPiRepository):
             self._basic_auth = requests.auth.HTTPBasicAuth(username, password)
 
         self._disable_cache = disable_cache
+        self.secondary = secondary
 
     @property
     def cert(self):  # type: () -> Optional[Path]

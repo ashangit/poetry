@@ -51,7 +51,7 @@ class PyPiRepository(RemoteRepository):
     CACHE_VERSION = parse_constraint("1.0.0")
 
     def __init__(self, url="https://pypi.org/", disable_cache=False, fallback=True):
-        super(PyPiRepository, self).__init__(url.rstrip("/") + "/simple/")
+        super(PyPiRepository, self).__init__(url.rstrip("/") + "/simple/", False)
 
         self._base_url = url
         self._disable_cache = disable_cache

@@ -167,6 +167,8 @@ class Pool(BaseRepository):
 
         packages = []
         for repo in self._repositories:
+            if repo.secondary and packages:
+                continue
             packages += repo.find_packages(dependency)
 
         return packages
